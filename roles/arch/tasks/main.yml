@@ -1,0 +1,12 @@
+- name: Install essential Arch packages
+  pacman:
+    name:
+      - base-devel
+      - neovim
+      - sudo
+      - networkmanager
+      - xorg
+      - plasma
+    state: present
+    update_cache: yes
+

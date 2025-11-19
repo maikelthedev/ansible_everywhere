@@ -1,0 +1,25 @@
+- name: Install packages on FreeBSD
+  package:
+    name:
+      - bash
+      - git
+      - tmux
+      - mosh
+      - zerotier
+      - neovim
+      - htop
+    state: present
+  become: true
+  register: pkg_result
+
+- name: Show installed packages
+  debug:
+    msg: "{{ pkg_result }}"
+  when: pkg_result.changed
+
+- name: Enable and start sshd
+  service:
+    name: sshd
+    state: started
+    enabled: yes
+

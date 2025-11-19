@@ -1,0 +1,24 @@
+- name: Configure all systems
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Debug OS info
+      debug:
+        msg: "Running on {{ ansible_os_family }} ({{ inventory_hostname }})"
+
+    - name: Include FreeBSD-specific tasks
+      include_role:
+        name: freebsd
+      when: ansible_os_family == "FreeBSD"
+
+    - name: Include Arch-specific tasks
+      include_role:
+        name: arch
+      when: ansible_distribution == "Archlinux"
+
+    - name: Include NixOS-specific tasks
+      include_role:
+        name: nixos
+      when: ansible_distribution == "NixOS"

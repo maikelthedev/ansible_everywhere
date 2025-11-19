@@ -1,0 +1,6 @@
+- name: Configure NixOS system
+  hosts: nixos
+  gather_facts: true
+  roles:
+    - nixos
+

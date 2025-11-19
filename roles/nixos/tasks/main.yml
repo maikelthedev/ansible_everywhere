@@ -1,0 +1,15 @@
+- name: Show system hostname
+  command: hostname
+  register: hostname_output
+
+- name: Apply NixOS configuration using hostname
+  command: >
+    sudo nixos-rebuild
+      -I nixos-config=$HOME/code/nixconf/machines/{{ hostname_output.stdout }}/configuration.nix
+      --use-remote-sudo switch
+  register: result
+  changed_when: false
+
+- name: Print only stdout
+  debug:
+    msg: "{{ result.stdout_lines }}"
