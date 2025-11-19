@@ -20,3 +20,5 @@ Here with the example of Nixos
 ```bash
  ansible-playbook -i inventory/host.ini playbooks/nixos.yml
 ```
+
+For an issue tracker of the project check [here](https://github.com/users/maikelthedev/projects/2)
