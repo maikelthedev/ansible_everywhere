@@ -21,4 +21,15 @@ Here with the example of Nixos
  ansible-playbook -i inventory/host.ini playbooks/nixos.yml
 ```
 
+# Add Fish shell functions
+
+Assumign this project is on `~/code/ansible_everywhere` then
+
+```fish
+set -eg fish_function_path
+set -U fish_function_path $fish_function_path ~/code/ansible_everywhere/dotfiles/.config/fish/functions
+```
+
 For an issue tracker of the project check [here](https://github.com/users/maikelthedev/projects/2)
+
+

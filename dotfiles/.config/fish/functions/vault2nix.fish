@@ -1,6 +1,6 @@
 function vault2nix --description 'Export a HashiCorp Vault secret as vars.nix'
     set path $argv[1]
-    set outfile vars.nix
+    set outfile /tmp/vars.nix
 
     if test -z "$path"
         echo "Usage: vault2nix <vault-path>"
