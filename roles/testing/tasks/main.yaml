@@ -1,0 +1,21 @@
+
+- name: Show vault_token
+  debug:
+    var: vault_token
+- name: Show vault address
+  debug:
+    var: vault_addr
+- name: Fetch "name" from Vault secret/test
+  set_fact:
+    hello_value: >-
+      {{
+        lookup(
+          'community.hashi_vault.hashi_vault',
+          'secret=secret/test field=name',
+          token=vault_token,
+          url=vault_addr
+        )
+      }}
+- name: Show hello_value
+  debug:
+    var: hello_value

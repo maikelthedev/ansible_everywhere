@@ -1,6 +1,11 @@
 - name: Configure NixOS system
   hosts: nixos
   gather_facts: true
+  pre_tasks:
+  - name: Set vault token from env
+    set_fact:
+      vault_token: "{{ lookup('env','LOCAL_VAULT_ROOT_TOKEN') }}"
+      vault_addr: "{{ lookup('env','LOCAL_VAULT_ADDR') }}"
   roles:
     - nixos
 

@@ -2,14 +2,31 @@
   command: hostname
   register: hostname_output
 
-- name: Apply NixOS configuration using hostname
-  command: >
-    sudo nixos-rebuild
-      -I nixos-config=$HOME/code/nixconf/machines/{{ hostname_output.stdout }}/configuration.nix
-      --use-remote-sudo switch
-  register: result
-  changed_when: false
+# - name: Apply NixOS configuration using hostname
+#   command: >
+#     sudo nixos-rebuild
+#       -I nixos-config=$HOME/code/nixconf/machines/{{ hostname_output.stdout }}/configuration.nix
+#       --use-remote-sudo switch
+#   register: result
+#   changed_when: false
 
-- name: Print only stdout
+# - name: Print only stdout
+#   debug:
+#     msg: "{{ result.stdout_lines }}"
+- name: Copy host NixOS configuration to /tmp
+  copy:
+    src: "{{ lookup('env','PWD') }}/nix/{{ hostname_output.stdout }}/configuration.nix"
+    dest: "/tmp/configuration.nix"
+
+- name: Fetch machine_data from Vault for this host
+  set_fact:
+    machine_data: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=secret/{{ hostname_output.stdout }}', token=vault_token, url=vault_addr) }}"
+
+- name: Show machine_data
   debug:
-    msg: "{{ result.stdout_lines }}"
+    var: machine_data
+
+- name: Write vars.nix from Vault variable dynamically
+  template:
+    src: "vars.nix.j2"
+    dest: "/tmp/vars.nix"
