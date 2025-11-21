@@ -33,7 +33,5 @@ set -U fish_function_path $fish_function_path ~/code/ansible_everywhere/dotfiles
 For an issue tracker of the project check [here](https://github.com/users/maikelthedev/projects/2)
 
 
-
-
 # Warnings
 1. if running from nixos avoid python conflicts by using `shell.nix` by runninga `nix-shell` once in the folder. 
