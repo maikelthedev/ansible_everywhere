@@ -1,4 +1,6 @@
 function vault2nix --description 'Export a HashiCorp Vault secret as vars.nix'
+    # NOTE: The job of this fish script is to mimic Ansible templating for creation of vars.nix without the need for vars.nix so I can run locally on any machine "apply_config" and move on as I've always done. My current dotfiles (not shared here) are in ~/code/nixconf so apply_config.fish will need changing later on too as that (very private) repo and this one merge. 
+
     set path $argv[1]
     set outfile /tmp/vars.nix
 
